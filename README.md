@@ -1,55 +1,66 @@
-# Notes App with Nodejs and Mysql
 
-Notes App is a Multi Page Application using Nodejs and Mysql. The purpose of this web application is just to be an example for beginners.
+## Getting Started
 
-![](docs/screenshot2.png)
-![](docs/screenshot.png)
+This repo is forked from [fazt/nodejs-mysql-links](https://github.com/fazt/nodejs-mysql-links). Compared with the original repo, 
 
-### Installation with Docker (Recommended)
+- Port is changed to 80 for production
+- Add SSL when connecting to Azure MySql to follow Azure security practice
 
+### Prepare
+
+Prepare Code to Cloud environment by following the steps below, or check [Code to Cloud readme](https://github.com/Azure/codeToCloud) to learn more.
+
+1. Install VSCode-Insider.
+2. Install extension Github Copilot, Github Copilot Chat and login to Copilot.
+3. Clone the Code to Cloud project.
+   ```cmd
+   git clone https://github.com/Azure/codeToCloud.git
+   ```
+4. Open the project with VSCode-Insider
+   ```cmd
+   code-insiders --enable-proposed-api Microsoft.codetocloud codeToCloud/
+   ```
+5. Install dependencies via `npm install` at the project root folder.
+6. Run `Debug` task to start a debug window.
+7. In debug VSCode window, open the project you want to test with CodeToCloud
+8. In debug Copilot chat window, run `@codetocloud /recommend`
+9. In debug Copilot chat window, run `@codetocloud /generate`
+
+### Path 1. azd
+
+1. Clone repo
+
+```cmd
+git clone https://github.com/houk-ms/nodejs-mysql-links
 ```
-git clone https://github.com/FaztTech/nodejs-mysql-links
-cd nodejs-mysql-links
-docker-compose up
+
+2. Init the repo with `azd init`
+
+```cmd
+cd nodejs-mysql-links/
+azd init
 ```
 
-Now you can visit http://localhost:4000
+3. Deploy to Azure
 
-### Manual Installation
-
-```
-mysql -u MYUSR "-pMYPASSWORD" < ./database/db.sql # create database
-npm i
-npm run build
-npm start
+```cmd
+azd up
 ```
 
-## File Structure
+### Path 2. CodeToCloud + azd
 
-- database, it the folder with all the sql queries, you can use to recreate the database for this application
-- src, it's all the code for the Backend and Frontend Application
-- docs
+1. Clone repo
 
-## Environment Variables
+```cmd
+git clone https://github.com/houk-ms/nodejs-mysql-links
+```
 
-- PORT
+2. Open the project in debug VSCode Insider window, init the repo with CodeToCloud.
 
-## Old Versions of this Project
+   * `@codetocloud /recommend`: run this command in Github Copilot to analyze codes and get recommended azure services
+   * `@codetocloud /generate`: run this command to generate bicep files and make the repo azd compatible
+3. Deploy to Azure
 
-- [version-2018](https://github.com/FaztTech/nodejs-mysql-links/tree/version-2018)
-
-## Todo
-
-1. [ ] Add docker compose production build
-1. [ ] Add nodemailer for transactional emails
-
-## Tools
-
-- Nodejs
-- Mysql
-- Babel
-- Docker
-
-# Resources
-
-- https://stackoverflow.com/questions/50093144/mysql-8-0-client-does-not-support-authentication-protocol-requested-by-server
+```cmd
+azd up
+```
